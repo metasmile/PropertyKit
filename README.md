@@ -6,7 +6,7 @@
 [![language](https://img.shields.io/badge/spm-compatible-brightgreen.svg)](https://swift.org)
 [![swift](https://img.shields.io/badge/swift-4.0+-orange.svg)](https://github.com/metasmile/PropertyKit/releases)
 
-Light-weight, strict protocol-first styled PropertyKit helps you to easily and safely handle guaranteed values, keys or types on various situations of large scale Swift project.
+Light-weight, strict protocol-first styled PropertyKit helps you to easily and safely handle guaranteed values, keys or types on various situations of the large-scale Swift project.
 
 ## Installation
 
@@ -16,10 +16,11 @@ Light-weight, strict protocol-first styled PropertyKit helps you to easily and s
 
 - PropertyDefaults - for UserDefaults
 - PropertyWatchable - for NSKeyValueObservation
+- ~
 
 ## PropertyDefaults
 
-The simplest, but reliable way to manage UserDefaults, PropertyKit binds value and type from Swift property to  UserDefaults keys and values automatically. And it helps to avoid unsafe String key use.
+The simplest, but reliable way to manage UserDefaults, PropertyDefaults binds value and type from Swift property to  UserDefaults keys and values automatically. And it helps to avoid unsafe String key use.
 
 - [x] Swift 4 Codable Support
 - [x] Key-Value-Type-Safety, no String literal use.
@@ -29,11 +30,11 @@ The simplest, but reliable way to manage UserDefaults, PropertyKit binds value a
 
 ### Usage
 
-PropertyKit supports only protocol expansion pattern that is focusing on syntax-driven key value handling, therefore perfect safe custom properties with Swift.
+PropertyDefaults supports only protocol expansion pattern that is focusing on syntax-driven key value handling, therefore perfect safe custom properties with Swift.
 
 An example to use with basic Codable types:
 ```swift
-extension Defaults: PropertyKit {
+extension Defaults: PropertyDefaults {
     public var autoStringProperty: String? {
         set{ set(newValue) } get{ return get() }
     }
@@ -61,7 +62,7 @@ public struct CustomValueType: Codable{
     var date:Date?
     var data:Data?
 }
-extension Defaults: PropertyKit {
+extension Defaults: PropertyDefaults {
     // non-optional - must define the default value with the keyword 'or'
     public var autoCustomNonOptionalProperty: CustomValueType {
         set{ set(newValue) } get{ return get(or: CustomValueType()) }
@@ -80,7 +81,7 @@ With this pattern, as you know, you also can control access permission with prot
 
 ```swift
 // MyFile.swift
-fileprivate protocol PrivateDefaultKeysInThisSwiftFile:PropertyKit{
+fileprivate protocol PrivateDefaultKeysInThisSwiftFile: PropertyDefaults{
     var filePrivateValue: String? {set get}
 }
 
