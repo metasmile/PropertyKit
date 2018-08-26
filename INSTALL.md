@@ -1,10 +1,6 @@
 
 # PropertyKit
 
-[UserDefaults](https://developer.apple.com/documentation/foundation/userdefaults) for iOS, macOS and tvOS.
-
-Usage >> [`Instructions`](https://github.com/metasmile/PropertyKit/blob/master/README.md) <<
-
 ## Installation
 - [CocoaPods](#cocoapods)
 - [Carthage](#carthage)

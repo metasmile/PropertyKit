@@ -10,6 +10,9 @@ Light-weight, strict protocol-first styled PropertyKit helps you to easily and s
 
 ## Installation
 
+[Detail Guide](https://github.com/metasmile/PropertyKit/blob/master/INSTALL.md)
+
+
 CocoaPods
 ```ruby
 pod 'PropertyKit'
@@ -25,7 +28,6 @@ Swift Package Manager
 .Package(url: "https://github.com/metasmile/PropertyKit.git")
 ```
 
-[Detail Guide](https://github.com/metasmile/PropertyKit/blob/master/INSTALL.md)
 
 ## Modules
 
@@ -35,7 +37,7 @@ Swift Package Manager
 
 ## PropertyDefaults
 
-The simplest, but reliable way to manage UserDefaults, PropertyDefaults automatically binds value and type from Swift property to UserDefaults keys and values.  And it supports only protocol extension pattern that is focusing on syntax-driven value handling, and it helps to avoid unsafe String key use. Therefore it can be perfectly safe through a Swift coding pattern.
+The simplest, but reliable way to manage UserDefaults, PropertyDefaults automatically binds value and type from Swift property to UserDefaults keys and values.  And it supports only protocol extension pattern that is focusing on syntax-driven value handling, so it helps to avoid unsafe String key use. 
 
 - [x] Swift 4 Codable Support
 - [x] Key-Value-Type-Safety, no String literal use.
@@ -115,10 +117,25 @@ Defaults.shared.filePrivateValue
 Defaults.shared.filePrivateValue
 ```
 
+And, Yes, It's a hack way to crack our design intention.  
+
+```swift
+var p1:Int{
+    Defaults.shared.set(2)  
+    return Defaults.shared.get(or:0)  
+}
+var p2: Int{
+    return Defaults.shared.get(or:0)  
+}
+
+p1 // == 2
+p2 // == 0
+//It means that are function/property-scoped capsulated defaults values.
+```
 
 ## PropertyWatchable
 
-A protocol extension based on NSKeyValueObservation. It simply enables to let a class object become a type-safe keypath observable object. And unique observer identifier will be assigned to all observers automatically. That prevents especially duplicated callback calls and so it can let you atomically manage a bunch of flows between key-value flows and queues.
+A protocol extension based on NSKeyValueObservation. It simply enables to let a class object become a type-safe keypath observable object. And unique observer identifier will be assigned to all observers automatically. That prevents especially duplicated callback calls and so it can let you atomically manage a bunch of key-value flows between its joined queues.
 
 - [x] Making an observable object with only protocol use.
 - [x] Swift property literal based keypath observation.
@@ -157,16 +174,18 @@ object.watch(\.testingProperty) { (object, changes) in
 Automatic line by line identifier support.
 ```swift
 object.watch(\.testingProperty) {
-    // Listening as a unique observer A
+    // Listening as a unique observer 1
 }
 
 object.watch(\.testingProperty) {
-    // Listening as a unique observer A
+    // Listening as a unique observer 2
 }
 
 object.watch(\.testingProperty, id:"myid") {
     // Listening as an observer which has identifier "myid"
 }
+
+// total 3 separated each observers are listening each callbacks.
 ```
 
 Remove observations with various options.
