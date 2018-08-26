@@ -1,12 +1,16 @@
 <img width="447" alt="PropertyKit" src="https://github.com/metasmile/PropertyKit/raw/master/title.png?raw=true">
 
-
 [![cocoapods compatible](https://img.shields.io/badge/cocoapods-compatible-brightgreen.svg)](https://cocoapods.org/pods/PropertyKit)
 [![carthage compatible](https://img.shields.io/badge/carthage-compatible-brightgreen.svg)](https://github.com/Carthage/Carthage)
 [![language](https://img.shields.io/badge/spm-compatible-brightgreen.svg)](https://swift.org)
+[![platform](https://img.shields.io/badge/platform-iOS%20%7C%20macOS%20%7C%20tvOS-lightgrey.svg)](https://developer.apple.com/develop/)
 [![swift](https://img.shields.io/badge/swift-4.0+-orange.svg)](https://github.com/metasmile/PropertyKit/releases)
 
+<<<<<<< Updated upstream
 Light-weight, strict protocol-first styled PropertyKit helps you to easily and safely handle guaranteed values, keys or types on various situations of the large-scale Swift project.
+=======
+Light-weight, strict protocol-first styled PropertyKit helps you to easily and safely handle guaranteed values, keys or types on various situations of the large-scale Swift project on iOS, macOS and tvOS.
+>>>>>>> Stashed changes
 
 ## Installation
 
@@ -20,7 +24,11 @@ Light-weight, strict protocol-first styled PropertyKit helps you to easily and s
 
 ## PropertyDefaults
 
+<<<<<<< Updated upstream
 The simplest, but reliable way to manage UserDefaults, PropertyDefaults binds value and type from Swift property to  UserDefaults keys and values automatically. And it helps to avoid unsafe String key use.
+=======
+The simplest, but reliable way to manage UserDefaults, PropertyDefaults automatically binds value and type from Swift property to UserDefaults keys and values.  And it supports only protocol extension pattern that is focusing on syntax-driven value handling, and it helps to avoid unsafe String key use. Therefore it can be perfectly safe through a Swift coding pattern.
+>>>>>>> Stashed changes
 
 - [x] Swift 4 Codable Support
 - [x] Key-Value-Type-Safety, no String literal use.
@@ -30,8 +38,11 @@ The simplest, but reliable way to manage UserDefaults, PropertyDefaults binds va
 
 ### Usage
 
+<<<<<<< Updated upstream
 PropertyDefaults supports only protocol expansion pattern that is focusing on syntax-driven key value handling, therefore perfect safe custom properties with Swift.
 
+=======
+>>>>>>> Stashed changes
 An example to use with basic Codable types:
 ```swift
 extension Defaults: PropertyDefaults {
@@ -77,11 +88,15 @@ extension Defaults: PropertyDefaults {
 }
 ```
 
-With this pattern, as you know, you also can control access permission with protocol. It means you can use 'private' or 'fileprivate' defaults access.
+With this pattern, as you know, you also can control access permission with the protocol. It means you can use 'private' or 'file-private' defaults access.
 
 ```swift
 // MyFile.swift
+<<<<<<< Updated upstream
 fileprivate protocol PrivateDefaultKeysInThisSwiftFile: PropertyDefaults{
+=======
+fileprivate protocol PrivateDefaultKeysInThisSwiftFile:PropertyDefaults{
+>>>>>>> Stashed changes
     var filePrivateValue: String? {set get}
 }
 
@@ -105,13 +120,14 @@ Defaults.shared.filePrivateValue
 
 ## PropertyWatchable
 
-A protocol extension based on NSKeyValueObservation. It simply enables to let a class object become a type-safe keypath observable object. And unique observer identifier will be assigned to all observers automatically.
+A protocol extension based on NSKeyValueObservation. It simply enables to let a class object become a type-safe keypath observable object. And unique observer identifier will be assigned to all observers automatically. That prevents especially duplicated callback calls and so it can let you atomically manage a bunch of flows between key-value flows and queues.
 
 - [x] Making an observable object with only protocol use.
 - [x] Swift property literal based keypath observation.
 - [x] Strictful type-guaranteed callback parameter support.
 - [x] Automatic unique identifier support.
 - [x] File-scoped observer removing support.
+- [ ] Queue-private atomic operation support.
 
 ### Usage
 
@@ -143,15 +159,15 @@ object.watch(\.testingProperty) { (object, changes) in
 Automatic line by line identifier support.
 ```swift
 object.watch(\.testingProperty) {
-    // Listening unique observer A
+    // Listening as a unique observer A
 }
 
 object.watch(\.testingProperty) {
-    // Listening unique observer B
+    // Listening as a unique observer A
 }
 
 object.watch(\.testingProperty, id:"myid") {
-    // Listening observer which has identifier "myid"
+    // Listening as an observer which has identifier "myid"
 }
 ```
 
