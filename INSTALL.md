@@ -3,7 +3,7 @@
 
 [UserDefaults](https://developer.apple.com/documentation/foundation/userdefaults) for iOS, macOS and tvOS.
 
-Usage >> [`instructions`](https://github.com/metasmile/PropertyKit/blob/master/README.md) <<
+Usage >> [`Instructions`](https://github.com/metasmile/PropertyKit/blob/master/README.md) <<
 
 ## Installation
 - [CocoaPods](#cocoapods)

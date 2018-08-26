@@ -4,17 +4,28 @@
 [![carthage compatible](https://img.shields.io/badge/carthage-compatible-brightgreen.svg)](https://github.com/Carthage/Carthage)
 [![language](https://img.shields.io/badge/spm-compatible-brightgreen.svg)](https://swift.org)
 [![platform](https://img.shields.io/badge/platform-iOS%20%7C%20macOS%20%7C%20tvOS-lightgrey.svg)](https://developer.apple.com/develop/)
-[![swift](https://img.shields.io/badge/swift-4.0+-orange.svg)](https://github.com/metasmile/PropertyKit/releases)
+[![swift](https://img.shields.io/badge/swift-4.~2-orange.svg)](https://github.com/metasmile/PropertyKit/releases)
 
-<<<<<<< Updated upstream
-Light-weight, strict protocol-first styled PropertyKit helps you to easily and safely handle guaranteed values, keys or types on various situations of the large-scale Swift project.
-=======
 Light-weight, strict protocol-first styled PropertyKit helps you to easily and safely handle guaranteed values, keys or types on various situations of the large-scale Swift project on iOS, macOS and tvOS.
->>>>>>> Stashed changes
 
 ## Installation
 
-[Installation Guide](https://github.com/metasmile/PropertyKit/blob/master/INSTALL.md)
+CocoaPods
+```ruby
+pod 'PropertyKit'
+```
+
+Carthage
+```ogdl
+github "metasmile/PropertyKit"
+```
+
+Swift Package Manager
+```swift
+.Package(url: "https://github.com/metasmile/PropertyKit.git")
+```
+
+[Detail Guide](https://github.com/metasmile/PropertyKit/blob/master/INSTALL.md)
 
 ## Modules
 
@@ -24,11 +35,7 @@ Light-weight, strict protocol-first styled PropertyKit helps you to easily and s
 
 ## PropertyDefaults
 
-<<<<<<< Updated upstream
-The simplest, but reliable way to manage UserDefaults, PropertyDefaults binds value and type from Swift property to  UserDefaults keys and values automatically. And it helps to avoid unsafe String key use.
-=======
 The simplest, but reliable way to manage UserDefaults, PropertyDefaults automatically binds value and type from Swift property to UserDefaults keys and values.  And it supports only protocol extension pattern that is focusing on syntax-driven value handling, and it helps to avoid unsafe String key use. Therefore it can be perfectly safe through a Swift coding pattern.
->>>>>>> Stashed changes
 
 - [x] Swift 4 Codable Support
 - [x] Key-Value-Type-Safety, no String literal use.
@@ -38,11 +45,6 @@ The simplest, but reliable way to manage UserDefaults, PropertyDefaults automati
 
 ### Usage
 
-<<<<<<< Updated upstream
-PropertyDefaults supports only protocol expansion pattern that is focusing on syntax-driven key value handling, therefore perfect safe custom properties with Swift.
-
-=======
->>>>>>> Stashed changes
 An example to use with basic Codable types:
 ```swift
 extension Defaults: PropertyDefaults {
@@ -92,11 +94,7 @@ With this pattern, as you know, you also can control access permission with the 
 
 ```swift
 // MyFile.swift
-<<<<<<< Updated upstream
 fileprivate protocol PrivateDefaultKeysInThisSwiftFile: PropertyDefaults{
-=======
-fileprivate protocol PrivateDefaultKeysInThisSwiftFile:PropertyDefaults{
->>>>>>> Stashed changes
     var filePrivateValue: String? {set get}
 }
 
