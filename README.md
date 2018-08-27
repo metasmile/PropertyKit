@@ -31,23 +31,31 @@ Swift Package Manager
 
 ## Modules
 
-- PropertyDefaults - for UserDefaults
-- PropertyWatchable - for NSKeyValueObservation
+- [PropertyWatchable](https://github.com/metasmile/PropertyKit/blob/master/README.md#propertywatchable) *for NSKeyValueObservation*
+- [PropertyDefaults](https://github.com/metasmile/PropertyKit/blob/master/README.md#propertydefaults) *for UserDefaults*
 - ~
+
+
 
 ## PropertyDefaults
 
-The simplest, but reliable way to manage UserDefaults, PropertyDefaults automatically binds value and type from Swift property to UserDefaults keys and values.  And it supports only protocol extension pattern that is focusing on syntax-driven value handling, so it helps to avoid unsafe String key use. 
+The simplest, but reliable way to manage UserDefaults. PropertyDefaults automatically binds value and type from Swift property to UserDefaults keys and values. It forces only protocol extension pattern that is focusing on syntax-driven value handling, so it helps to avoid unsafe String key use. Therefore, natually, Swift compiler will protect all of missing or duplicating states with its own. 
+
+PropertyDefaults is new hard fork of [DefaultsKit](https://github.com/nmdias/DefaultsKit) by [nmdias](https://github.com/nmdias) with entirely different approaches.
+
+
+### Features
 
 - [x] Swift 4 Codable Support
-- [x] Key-Value-Type-Safety, no String literal use.
-- [x] Structural Protocol-Driven Pattern
+- [x] Compile-time UserDefaults guaranteeing. 
+- [x] Key-Type-Value relationship safety, no String literal use.
+- [x] Structural extension-protocol-driven, instead of an intension.
 - [x] Permission control
-- [ ] Scope Control - File/Class/Struct/Function-Private
+- [ ] Automatic private scope - In File, Class or Struct, Function
 
 ### Usage
 
-An example to use with basic Codable types:
+An example to define automatic UserDefaults keys with basic Codable types:
 ```swift
 extension Defaults: PropertyDefaults {
     public var autoStringProperty: String? {
@@ -57,7 +65,9 @@ extension Defaults: PropertyDefaults {
         set{ set(newValue) } get{ return get() }
     }
 }
+```
 
+```swift
 var sharedDefaults = Defaults()
 sharedDefaults.autoStringProperty = "the new value will persist in shared scope"
 // sharedDefaults.autoStringProperty == Defaults.shared.autoStringProperty
@@ -90,6 +100,32 @@ extension Defaults: PropertyDefaults {
         set{ set(newValue, or: CustomValueType()) } get{ return get() }
     }
 }
+```
+
+
+Strongly guranteeing unique key with Swift compiler.
+```swift
+//CodeFile1_ofLargeProject.swift
+protocol MyDefaultsKeysUsingInA : PropertyDefaults{
+    var noThisIsMyKeyNotYours:Int?{ get }
+}
+extension Defaults : MyDefaultsKeysUsingInA{
+    var noThisIsMyKeyNotYours:Int?{ set{ set(newValue) } get{ return get() } }
+}
+
+//CodeFile2_ofLargeProject.swift
+protocol MyDefaultsKeysUsingInB : PropertyDefaults{
+    var noThisIsMyKeyNotYours:Int?{ get }
+}
+extension Defaults : MyDefaultsKeysUsingInB{
+    var noThisIsMyKeyNotYours:Int?{ set{ set(newValue) } get{ return get() } }
+}
+```
+
+```bash
+❗️Swift Compiler Error
+~.swift:30:9: Invalid redeclaration of 'noThisIsMyKeyNotYours'
+~.swift:21:9: 'noThisIsMyKeyNotYours' previously declared here
 ```
 
 With this pattern, as you know, you also can control access permission with the protocol. It means you can use 'private' or 'file-private' defaults access.
@@ -137,6 +173,8 @@ p2 // == 0
 
 A protocol extension based on NSKeyValueObservation. It simply enables to let a class object become a type-safe keypath observable object. And unique observer identifier will be assigned to all observers automatically. That prevents especially duplicated callback calls and so it can let you atomically manage a bunch of key-value flows between its joined queues.
 
+### Features
+
 - [x] Making an observable object with only protocol use.
 - [x] Swift property literal based keypath observation.
 - [x] Strictful type-guaranteed callback parameter support.
@@ -146,7 +184,7 @@ A protocol extension based on NSKeyValueObservation. It simply enables to let a 
 
 ### Usage
 
-The simplest example to use
+The simplest example to use.
 ```swift
 class WatchableObject:NSObject, PropertyWatchable{
     @objc dynamic
@@ -155,19 +193,25 @@ class WatchableObject:NSObject, PropertyWatchable{
 
 let object = WatchableObject()
 object.watch(\.testingProperty) {
-    //object.testingProperty == "some value"
+    object.testingProperty == "some value"
     //Do Something.
 }
 
 object.testingProperty = "some value"
 ```
 
-Typed callback object and NSKeyValueObservedChange<Value>.
+All options and strongly typed-parameters are same with NSKeyValueObservation. 
 ```swift
-object.watch(\.testingProperty) { (object, changes) in
-    object.testingProperty
-    //object.testingProperty == "some value"
+// Default option is the default of NSKeyValueObservation (.new)
+object.watch(\.testingProperty, options: [.initial, .new, .old]) { (target, changes) in // (WatchableObject, NSKeyValueObservedChange<Value>)
+    target.testingProperty == "some value"
     //Dd Something.
+}
+
+let object = WatchableObject()
+object.testingProperty = "initial value"
+config.watch(\.testingProperty, options: [.initial]) { (o, _) in
+    o.testingProperty == "initial value"
 }
 ```
 
@@ -181,7 +225,7 @@ object.watch(\.testingProperty) {
     // Listening as a unique observer 2
 }
 
-object.watch(\.testingProperty, id:"myid") {
+object.watch(\.testingProperty, id:"myid", options:[.old]) {
     // Listening as an observer which has identifier "myid"
 }
 
