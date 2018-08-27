@@ -204,11 +204,13 @@ object.testingProperty = "some value"
 All options and strongly typed-parameters are same with NSKeyValueObservation. 
 ```swift
 // Default option is the default of NSKeyValueObservation (.new)
-object.watch(\.testingProperty, options: [.initial, .new, .old]) { (target, changes) in // (WatchableObject, NSKeyValueObservedChange<Value>)
+// (WatchableObject, NSKeyValueObservedChange<Value>)
+object.watch(\.testingProperty, options: [.initial, .new, .old]) { (target, changes) in     
     target.testingProperty == "some value"
     //Dd Something.
 }
-
+```
+```swift
 let object = WatchableObject()
 object.testingProperty = "initial value"
 config.watch(\.testingProperty, options: [.initial]) { (o, _) in
