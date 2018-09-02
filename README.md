@@ -104,7 +104,7 @@ extension Defaults: PropertyDefaults {
 ```
 
 
-Strongly guranteeing unique key with Swift compiler.
+Strongly guaranteeing unique key with Swift compiler.
 ```swift
 //CodeFile1_ofLargeProject.swift
 protocol MyDefaultsKeysUsingInA : PropertyDefaults{
