@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
   s.name = 'PropertyKit'
   s.version = '1.0'
   s.license = 'MIT'
-  s.swift_version = '4.0'
+  s.swift_version = '4.2'
   s.summary = 'Protocol-First, Type and Key-Safe Swift Property for iOS, macOS and tvOS.'
   s.homepage = 'https://github.com/metasmile/PropertyKit'
   s.authors = { 'Taeho Lee' => 'lee@stells.co' }
