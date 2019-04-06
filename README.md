@@ -5,7 +5,7 @@
 [![carthage compatible](https://img.shields.io/badge/carthage-compatible-brightgreen.svg)](https://github.com/Carthage/Carthage)
 [![language](https://img.shields.io/badge/spm-compatible-brightgreen.svg)](https://swift.org)
 [![platform](https://img.shields.io/badge/platform-iOS%20%7C%20macOS%20%7C%20tvOS-lightgrey.svg)](https://developer.apple.com/develop/)
-[![swift](https://img.shields.io/badge/swift-4.2 | 5.x-orange.svg)](https://github.com/metasmile/PropertyKit/releases)
+[![swift](https://img.shields.io/badge/swift-4.2,5.x-orange.svg)](https://github.com/metasmile/PropertyKit/releases)
 
 Light-weight, strict protocol-first styled PropertyKit helps you to easily and safely handle guaranteed values, keys or types on various situations of the large-scale Swift project on iOS, macOS and tvOS.
 
