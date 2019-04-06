@@ -148,7 +148,7 @@ extension PropertyWatchable where _Observee == Self{
         assert(ids.count>0,"Already unwatched In Current File.\(String(describing: keyPath))")
 
         if self.unwatch(forIds: ids).count > 0{
-            let indexesOfIds = ids.compactMap({ id -> Int? in idsInFile.index(of: id) })
+            let indexesOfIds = ids.compactMap({ id -> Int? in idsInFile.firstIndex(of: id) })
             for index in indexesOfIds {
                 watcher._autoObservationIdsInFile[_file]?.remove(at: index)
             }
